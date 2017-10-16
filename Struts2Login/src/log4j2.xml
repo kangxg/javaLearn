@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="600">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%t] %-5level %logger{36} %msg%n" />  
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/mylog.log" filePattern="logs/$${date:yyyy-MM}/mylog-%d{MM-dd-HH-mm}-%i.log.gz">
+          <PatternLayout>
+            <Pattern>%d %-5level %c{1.} [%t] %m%n</Pattern>
+          </PatternLayout>
+          <Policies>
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <SizeBasedTriggeringPolicy size="250 MB"/>
+          </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console" />
+        </Root>
+        <Logger name="mylog" level="warn" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+    </Loggers>
+</Configuration> 
